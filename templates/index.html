@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Algerian Forest Fire Prediction</title>
+
+  <!-- Leaflet CSS for Map -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+vx6kXiyI0G2xBjeoLTPfz7NGL3nWzV+GkZ3X9C2M="
+    crossorigin=""
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .video-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+      filter: brightness(0.4);
+    }
+
+    .overlay {
+      position: relative;
+      padding: 100px 20px 40px 20px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .overlay h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+    .overlay p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-button {
+      background-color: #ff4747;
+      color: white;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .cta-button:hover {
+      background-color: #ff2f2f;
+      transform: scale(1.05);
+    }
+
+    #map {
+      height: 400px;
+      width: 90%;
+      max-width: 900px;
+      margin: 50px auto;
+      border-radius: 12px;
+      border: 3px solid white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      z-index: 1;
+    }
+
+    .footer {
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔥 Video Background -->
+  <video autoplay muted loop class="video-background">
+    <source src="{{ url_for('static', filename='forest_fire.mp4') }}" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- 🔤 Main Text -->
+  <div class="overlay">
+    <h1>Algerian Forest Fire Prediction</h1>
+    <p>Predict fire risk using real-time environmental data like temperature, humidity, wind, and fuel moisture indicators.</p>
+    <a href="/predictdata" class="cta-button">🔥 Start Prediction</a>
+  </div>
+
+  <!-- 🗺️ Interactive Map -->
+  <div id="map"></div>
+
+  <!-- Footer -->
+  <div class="footer">
+    © 2025 Forest Fire AI | Built by Taraksh 🔥
+  </div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j8REp9tFrIS+3nV4b1h4GcISFhWqAr4U44cH+kE="
+    crossorigin="">
+  </script>
+
+  <!-- Initialize Map -->
+  <script>
+    const map = L.map('map').setView([36.75, 3.04], 6); // Centered on Algiers
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Optional: Add example markers
+    L.marker([36.75, 3.04]).addTo(map)
+      .bindPopup('🔥 Algiers - Fire monitoring station')
+      .openPopup();
+  </script>
+
+</body>
+</html>
